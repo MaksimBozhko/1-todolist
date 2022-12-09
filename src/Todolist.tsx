@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from "./Header";
+import TasksList from "./TasksList";
 
 type TodolistPropsType = {
     title: string
@@ -20,6 +21,7 @@ const Todolist = (props: TodolistPropsType) => {
                 <input/>
                 <button>+</button>
             </div>
+            <TasksList tasks={props.tasks}/>
         </div>
     );
 };
