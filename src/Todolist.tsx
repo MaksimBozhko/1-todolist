@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from "./Header";
 
 type TodolistPropsType = {
     title: string
@@ -14,7 +15,7 @@ export type TaskType = {
 const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
-            <h3>{props.title}</h3>
+            <Header title={props.title}/>
             <div>
                 <input/>
                 <button>+</button>
