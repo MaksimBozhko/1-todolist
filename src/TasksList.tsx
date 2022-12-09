@@ -10,9 +10,10 @@ const TasksList = (props: TasksListTypeProps) => {
     return (
         <div>
             <ul>
-                <Task id={props.tasks[0].id} title={props.tasks[0].title} isDone={props.tasks[0].isDone}/>
+                {props.tasks.map(el => <Task id={el.id} title={el.title} isDone={el.isDone} />)}
+                {/*<Task id={props.tasks[0].id} title={props.tasks[0].title} isDone={props.tasks[0].isDone}/>
                 <Task id={props.tasks[1].id} title={props.tasks[1].title} isDone={props.tasks[1].isDone}/>
-                <Task id={props.tasks[2].id} title={props.tasks[2].title} isDone={props.tasks[2].isDone}/>
+                <Task id={props.tasks[2].id} title={props.tasks[2].title} isDone={props.tasks[2].isDone}/>*/}
                 {/*<li><input type="checkbox" checked={props.tasks[0].isDone}/>{props.tasks[0].title}</li>
                 <li><input type="checkbox" checked={props.tasks[1].isDone}/>{props.tasks[1].title}</li>
                 <li><input type="checkbox" checked={props.tasks[2].isDone}/>{props.tasks[2].title}</li>*/}
