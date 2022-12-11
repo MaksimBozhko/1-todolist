@@ -4,13 +4,14 @@ import Task from "./Task";
 
 type TasksListType = {
     tasks: Array<TaskType>
+    removeTasks: (id:number) => void
 }
 
 const TasksList = (props: TasksListType) => {
     return (
         <div>
             <ul>
-                {props.tasks.map(el => <Task title={el.title} isDone={el.isDone}/>)}
+                {props.tasks.map(el => <Task id={el.id} title={el.title} isDone={el.isDone} removeTasks={props.removeTasks}/>)}
                 {/*<Task  title={props.tasks[0].title} isDone={props.tasks[0].isDone}/>
                 <Task  title={props.tasks[1].title} isDone={props.tasks[1].isDone}/>
                 <Task  title={props.tasks[2].title} isDone={props.tasks[2].isDone}/>*/}
