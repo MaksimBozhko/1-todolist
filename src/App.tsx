@@ -21,9 +21,8 @@ function App() {
         setFilter(value)
     }
     const addTasks = (value: string) => {
-        let newTasks = {id: 5, title: value, isDone: false}
-        tasks.push(newTasks)
-        setTasks(tasks)
+        let newTasks = [...tasks, {id: 5, title: value, isDone: false}]
+        setTasks(newTasks)
     }
 
     let tasksForTodoList = tasks
