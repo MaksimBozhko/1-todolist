@@ -24,7 +24,8 @@ function App() {
         setTitle(title)
     }
     const addNewTask = (title: string) => {
-        setTasks([...tasks, {id:5, title: title, isDone: false}])
+
+        setTasks([...tasks, {id:Math.random(), title: title, isDone: false}])
     }
 
     const removeTask = (taskId: number) => {
