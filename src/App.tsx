@@ -1,25 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Todolist, {TaskType} from "./Todolist";
 
+export type FilteredValuesType = 'all' | 'active' | 'completed'
+
+const tasks2: Array<TaskType> = [
+    {id: 1, title: 'REACT', isDone: false},
+    {id: 2, title: 'JS', isDone: true},
+    {id: 3, title: 'HTML & CSS', isDone: false}
+]
+
 function App() {
-    const tasks1: Array<TaskType> = [
+    const [tasks, setTasks] = useState<Array<TaskType>>([
         {id: 1, title: 'HTML & CSS', isDone: true},
         {id: 2, title: 'JS', isDone: false},
         {id: 3, title: 'REACT', isDone: true},
         {id: 4, title: 'REDUX', isDone: false}
-    ]
-    const tasks2: Array<TaskType> = [
-        {id: 1, title: 'REACT', isDone: false},
-        {id: 2, title: 'JS', isDone: true},
-        {id: 3, title: 'HTML & CSS', isDone: false}
-    ]
-    const title1: string = 'What to learn'
-    const title2: string = 'What are you doing'
+    ])
+    const [filtered, setFiltered] = useState<FilteredValuesType>('all')
+
+    const removeTask = (taskId: number) => {
+        setTasks(tasks.filter(t => t.id !== taskId))
+    }
+    const filterChange = (value: FilteredValuesType) => {
+        setFiltered(value)
+    }
+
+    const getFilteredTasksForRender = () => {
+        let filteredTasks: Array<TaskType> = tasks
+        if(filtered === 'active') {
+            filteredTasks = tasks.filter(t => !t.isDone)
+        }
+        if(filtered === 'completed') {
+            filteredTasks = tasks.filter(t => t.isDone)
+        }
+        return filteredTasks
+    }
+
+    const filteredTasksForRender: Array<TaskType> = getFilteredTasksForRender()
+
     return (
         <div className="App">
-            <Todolist title={title1} tasks={tasks1}/>
-            <Todolist title={title2} tasks={tasks2}/>
+            <Todolist title='What to learn' tasks={filteredTasksForRender} removeTask={removeTask} filterChange={filterChange}/>
+            {/*<Todolist title='What are you doing' tasks={tasks2}/>*/}
         </div>
     );
 }

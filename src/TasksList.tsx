@@ -1,24 +1,24 @@
 import React from 'react';
 import {TaskType} from "./Todolist";
 import Task from "./Task";
+import {FilteredValuesType} from "./App";
 
 type TasksListType = {
     tasks: Array<TaskType>
+    removeTask: (taskId: number) => void
+    filterChange: (value: FilteredValuesType) => void
 }
 
 const TasksList = (props: TasksListType) => {
     return (
         <div>
             <ul>
-                {props.tasks.map(el => <Task title={el.title} isDone={el.isDone}/> )}
-                {/*<Task  title={props.tasks[0].title} isDone={props.tasks[0].isDone}/>
-                <Task  title={props.tasks[1].title} isDone={props.tasks[1].isDone}/>
-                <Task  title={props.tasks[2].title} isDone={props.tasks[2].isDone}/>*/}
+                {props.tasks.map(el => <Task key={el.id} {...el} removeTask={props.removeTask}/> )}
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <button onClick={() => props.filterChange('all')}>All</button>
+                <button onClick={() => props.filterChange('active')}>Active</button>
+                <button onClick={() => props.filterChange('completed')}>Completed</button>
             </div>
         </div>
     );

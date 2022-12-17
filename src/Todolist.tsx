@@ -1,10 +1,13 @@
 import React from 'react';
 import Header from "./Header";
 import TasksList from "./TasksList";
+import {FilteredValuesType} from "./App";
 
 type TodolistPropsType = {
     title: string
     tasks: Array<TaskType>
+    removeTask: (taskId: number) => void
+    filterChange: (value: FilteredValuesType) => void
 }
 
 export type TaskType = {
@@ -21,7 +24,7 @@ const Todolist = (props: TodolistPropsType) => {
                 <input/>
                 <button>+</button>
             </div>
-            <TasksList  tasks={props.tasks}/>
+            <TasksList  tasks={props.tasks} removeTask={props.removeTask} filterChange={props.filterChange}/>
         </div>
     );
 };
