@@ -10,15 +10,18 @@ type TasksListType = {
 }
 
 const TasksList = (props: TasksListType) => {
+
+    const taskItems = props.tasks.map(el => <Task key={el.id} {...el} removeTask={props.removeTask}/> )
+    const getOnClickSetFilterHandler = (filter: FilteredValuesType) => () => props.filterChange(filter)
     return (
         <div>
             <ul>
-                {props.tasks.map(el => <Task key={el.id} {...el} removeTask={props.removeTask}/> )}
+                {taskItems}
             </ul>
             <div>
-                <button onClick={() => props.filterChange('all')}>All</button>
-                <button onClick={() => props.filterChange('active')}>Active</button>
-                <button onClick={() => props.filterChange('completed')}>Completed</button>
+                <button onClick={getOnClickSetFilterHandler('all')}>All</button>
+                <button onClick={getOnClickSetFilterHandler("active")}>Active</button>
+                <button onClick={getOnClickSetFilterHandler("completed")}>Completed</button>
             </div>
         </div>
     );
