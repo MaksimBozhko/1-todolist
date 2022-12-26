@@ -19,20 +19,32 @@ function App() {
     ])
     const [filtered, setFiltered] = useState<FilteredValuesType>('all')
     const [title, setTitle] = useState<string>('')
+    const [error, setError] = useState<boolean>(false)
 
     const onChangeTitle = (title: string) => {
         setTitle(title)
     }
     const addNewTask = (title: string) => {
-
-        setTasks([...tasks, {id:Math.random(), title: title, isDone: false}])
+        const trimmedTitle = title.trim()
+        if (trimmedTitle) {
+            setTasks([...tasks, {id:Math.random(), title: title, isDone: false}])
+        } else {
+            setError(true)
+        }
+        setTitle('')
     }
-
     const removeTask = (taskId: number) => {
         setTasks(tasks.filter(t => t.id !== taskId))
     }
     const filterChange = (value: FilteredValuesType) => {
         setFiltered(value)
+    }
+    const changeIsDone = (taskId: number, isDone: boolean) => {
+         let task = tasks.find(t => t.id === taskId)
+        if(task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
     }
 
     const getFilteredTasksForRender = () => {
@@ -55,7 +67,10 @@ function App() {
                       filterChange={filterChange}
                       onChangeTitle={onChangeTitle}
                       titleTask={title}
-                      addNewTask={addNewTask}/>
+                      addNewTask={addNewTask}
+                      filtered={filtered}
+                      changeIsDone={changeIsDone}
+                      error={error}/>
             {/*<Todolist title='What are you doing' tasks={tasks2}/>*/}
         </div>
     );

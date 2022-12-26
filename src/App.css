@@ -6,3 +6,19 @@
 .App > div {
   margin-right: 50px;
 }
+
+.activeFilter {
+  font-weight: 700;
+  box-shadow: 0 0 10px 1px rgba(221, 221, 221, 1);
+}
+
+.isDone {
+  opacity: 0.5;
+}
+
+.inputError {
+  border: 1px solid red;
+}
+.errorMessage {
+  color: red;
+}
