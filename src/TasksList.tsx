@@ -5,24 +5,25 @@ import {FilteredValuesType} from "./App";
 
 type TasksListType = {
     tasks: Array<TaskType>
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     filterChange: (value: FilteredValuesType) => void
     filtered: FilteredValuesType
-    changeIsDone: (taskId: number, isDone: boolean) => void
+    changeIsDone: (taskId: string, isDone: boolean) => void
 }
 
 const TasksList = (props: TasksListType) => {
     const taskItems = props.tasks.map(el => <Task key={el.id} {...el} removeTask={props.removeTask} changeIsDone={props.changeIsDone}/> )
     const getOnClickSetFilterHandler = (filter: FilteredValuesType) => () => props.filterChange(filter)
+    const getClassNameButton = (filter: FilteredValuesType) => props.filtered === filter ? 'activeFilter' : ''
     return (
         <div>
             <ul>{taskItems}</ul>
             <div>
-                <button className={props.filtered === 'all' ? 'activeFilter' : ''}
+                <button className={getClassNameButton('all')}
                     onClick={getOnClickSetFilterHandler('all')}>All</button>
-                <button className={props.filtered === 'active' ? 'activeFilter' : ''}
+                <button className={getClassNameButton('active')}
                     onClick={getOnClickSetFilterHandler("active")}>Active</button>
-                <button className={props.filtered === 'completed' ? 'activeFilter' : ''}
+                <button className={getClassNameButton('completed')}
                     onClick={getOnClickSetFilterHandler("completed")}>Completed</button>
             </div>
         </div>
