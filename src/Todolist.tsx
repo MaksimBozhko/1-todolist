@@ -6,15 +6,17 @@ import Form from "./Form";
 import { v1 } from 'uuid';
 
 type TodolistPropsType = {
+    id: string
     title: string
     tasks: Array<TaskType>
-    /*removeTask: (taskId: number) => void
-    filterChange: (value: FilteredValuesType) => void
+    filterChange: (value: FilteredValuesType, todolistId: string) => void
+    filter: FilteredValuesType
+    addTask: (title: string, todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
+    changeIsDone: (taskId: string, isDone: boolean, todolistId: string) => void
+    /*
     onChangeTitle: (title: string) => void
     titleTask: string
-    addNewTask: (title: string) => void
-    filtered: FilteredValuesType
-    changeIsDone: (taskId: number, isDone: boolean) => void
     error: boolean*/
 }
 export type TaskType = {
@@ -24,44 +26,35 @@ export type TaskType = {
 }
 
 const Todolist = (props: TodolistPropsType) => {
-    const [tasks, setTasks] = useState<Array<TaskType>>(props.tasks)
-    const [filtered, setFiltered] = useState<FilteredValuesType>('all')
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
 
-    const onChangeTitle = (title: string) => {
-        setTitle(title)
-    }
     const addNewTask = (title: string) => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
-            setTasks([{id: v1(), title: title, isDone: false}, ...tasks])
+            props.addTask(trimmedTitle, props.id)
         } else {
             setError(true)
         }
         setTitle('')
     }
     const removeTask = (taskId: string) => {
-        setTasks(tasks.filter(t => t.id !== taskId))
-    }
-    const filterChange = (value: FilteredValuesType) => {
-        setFiltered(value)
+        props.removeTask(taskId, props.id)
     }
     const changeIsDone = (taskId: string, isDone: boolean) => {
-        let task = tasks.find(t => t.id === taskId)
-        if(task) {
-            task.isDone = isDone
-        }
-        setTasks([...tasks])
+        props.changeIsDone(taskId, isDone, props.id)
+    }
+    const onChangeTitle = (title: string) => {
+        setTitle(title)
     }
 
     const getFilteredTasksForRender = () => {
-        let filteredTasks: Array<TaskType> = tasks
-        if(filtered === 'active') {
-            filteredTasks = tasks.filter(t => !t.isDone)
+        let filteredTasks: Array<TaskType> = props.tasks
+        if(props.filter === 'active') {
+            filteredTasks = filteredTasks.filter(t => !t.isDone)
         }
-        if(filtered === 'completed') {
-            filteredTasks = tasks.filter(t => t.isDone)
+        if(props.filter === 'completed') {
+            filteredTasks = filteredTasks.filter(t => t.isDone)
         }
         return filteredTasks
     }
@@ -69,8 +62,9 @@ const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
             <Header title={props.title}/>
-            <Form onChangeTitle={onChangeTitle} titleTask={title} addNewTask={addNewTask} error={error} setError={setError}/>
-            <TasksList  tasks={filteredTasksForRender} removeTask={removeTask} filterChange={filterChange} filtered={filtered} changeIsDone={changeIsDone}/>
+            <Form onChangeTitle={onChangeTitle} titleTask={title} addNewTask={addNewTask} error={error} setError={setError} todolistId={props.id}/>
+            <TasksList  tasks={filteredTasksForRender} removeTask={removeTask} filterChange={props.filterChange}
+                        filtered={props.filter} changeIsDone={changeIsDone} todolistId={props.id}/>
         </div>
     );
 };

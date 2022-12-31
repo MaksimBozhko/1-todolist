@@ -1,6 +1,7 @@
 import React, {KeyboardEvent} from 'react';
 
 type FormType = {
+    todolistId: string
     onChangeTitle: (title: string) => void
     titleTask: string
     addNewTask: (title: string) => void
