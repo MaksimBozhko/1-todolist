@@ -1,24 +1,33 @@
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
 }
 
 .App > div {
-  margin-right: 50px;
-}
-
-.activeFilter {
-  font-weight: 700;
-  box-shadow: 0 0 10px 1px rgba(221, 221, 221, 1);
+    margin-right: 50px;
 }
 
 .isDone {
-  opacity: 0.5;
+    text-decoration: line-through;
+
+}
+
+.notIsDone {
+    font-weight: bold;
+}
+
+.activeFilter {
+    color: white;
+    font-weight: bold;
+    background-color: hotpink;
+    border-radius: 3px;
+    border: 2px solid hotpink
 }
 
 .inputError {
-  border: 1px solid red;
+    border: 3px solid hotpink;
 }
-.errorMessage {
-  color: red;
+
+.deleteButton {
+    height: 10px;
 }

@@ -1,69 +1,51 @@
-import React, {useState} from 'react';
+import Container from '@mui/material/Container/Container';
+import Grid from '@mui/material/Grid/Grid';
+import Paper from '@mui/material/Paper/Paper';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {v1} from 'uuid';
 import './App.css';
-import Todolist, {TaskType} from "./Todolist";
-import {v1} from "uuid";
+import {AddItemForm} from './components/AddItemForm';
+import {ButtonAppBar} from './components/ButtonAppBar';
+import {TodoList} from './components/TodoList';
+import {AppRootStateType} from './reducer/store';
+import {addTasksAC} from './reducer/tasksReducer';
+import {addTodoListAC, TodolistDomainType} from './reducer/todoListReducer';
 
-export type FilteredValuesType = 'all' | 'active' | 'completed'
-type todoListType = {
-    id: string
-    title: string
-    filter: FilteredValuesType
-}
 
-function App() {
-    const todoListId1 = v1()
-    const todoListId2 = v1()
-    const [todolists, setTodolist] = useState<Array<todoListType>>([
-        {id: todoListId1, title: 'what to learn', filter: 'active'},
-        {id: todoListId2, title: 'what to buy', filter: 'all'},
-    ])
-    const [tasks, setTasks] = useState({
-        [todoListId1]: [
-            {id: v1(), title: 'HTML & CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: false},
-            {id: v1(), title: 'REACT', isDone: true},
-            {id: v1(), title: 'REDUX', isDone: false}
-        ],
-        [todoListId2]: [
-            {id: v1(), title: 'REACT', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'HTML & CSS', isDone: false}
-        ],
-    })
+export const App = () => {
+  
+  const todoLists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
+  const dispatch = useDispatch();
 
-    const addTask = (title: string, todolistId: string) => {
-        const task = {id: v1(), title: title, isDone: false}
-        let tlTasks = tasks[todolistId]
-        const newTasks = [task, ...tlTasks]
-        tasks[todolistId] = newTasks
-        setTasks({...tasks})
-    }
-    const removeTask = (taskId: string, todolistId: string) => {
-        let filteredTasks = tasks[todolistId].filter(t => t.id != taskId)
-        tasks[todolistId] = filteredTasks
-        setTasks({...tasks})
-    }
-    const filterChange = (value: FilteredValuesType, todolistId: string) => {
-        const todolist = todolists.find(tl => tl.id === todolistId)
-        if (todolist) todolist.filter = value
-        setTodolist([...todolists])
-    }
-    const changeIsDone = (taskId: string, isDone: boolean, todolistId: string) => {
-        let task = tasks[todolistId].find(t => t.id === taskId)
-        if(task) {
-            task.isDone = isDone
-            setTasks({...tasks})
-        }
+  const addTodoListHandler = useCallback((titleTodoList: string) => {
+    const todolistId = v1()
+    dispatch(addTodoListAC(todolistId, titleTodoList));
+    dispatch(addTasksAC(todolistId));
+  },[dispatch]);
 
-    }
-    return (
-        <div className="App">
-            {todolists.map(tl => <Todolist key={tl.id} title={tl.title}
-                                           tasks={tasks[tl.id]} filterChange={filterChange}
-                                           id={tl.id} filter={tl.filter}
-                                           addTask={addTask} removeTask={removeTask} changeIsDone={changeIsDone}/>)}
-        </div>
-    );
-}
-
-export default App;
+  const todoListsMap = todoLists.map((t) => (
+    <Grid item key={t.id}>
+      <Paper style={{ padding: '10px' }}>
+        <TodoList
+          id={t.id}
+          title={t.title}
+          filter={t.filter}
+        />
+      </Paper>
+    </Grid>
+  ));
+  return (
+    <div>
+      <ButtonAppBar />
+      <Container fixed>
+        <Grid container style={{ padding: '20px' }}>
+          <AddItemForm callBack={addTodoListHandler} />
+        </Grid>
+        <Grid container spacing={3}>
+          {todoListsMap}
+        </Grid>
+      </Container>
+    </div>
+  );
+};
