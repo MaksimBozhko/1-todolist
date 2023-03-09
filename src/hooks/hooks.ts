@@ -1,7 +1,7 @@
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import {AppDispatch, AppRootStateType} from "../reducer/store";
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
+import {AppActionsType, AppRootStateType} from "../reducer/store";
+import {ThunkDispatch} from "redux-thunk";
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-type DispatchFunc = () => AppDispatch
-export const useAppDispatch: DispatchFunc = useDispatch
+type IAppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
+export const useAppDispatch = () => useDispatch<IAppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

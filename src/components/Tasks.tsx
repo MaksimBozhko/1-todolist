@@ -5,7 +5,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useSelector } from 'react-redux';
 import { AppRootStateType } from '../reducer/store';
 import {FilterValuesType} from "../reducer/todoListReducer";
-import {TaskType} from "../api/todolist-api";
+import {TaskStatuses, TaskType} from "../api/todolist-api";
 import {TasksStateType} from "../reducer/tasksReducer";
 
 type TasksPropsType = {
@@ -20,9 +20,9 @@ export const Tasks: React.FC<TasksPropsType> = memo(({ id: todoId, filter }) => 
   const getFilteredTasks = () => {
     switch (filter) {
       case 'active':
-        return tasks[todoId].filter((t) => !t.completed);
+        return tasks[todoId].filter((t) => t.status === TaskStatuses.New);
       case 'completed':
-        return tasks[todoId].filter((t) => t.completed);
+        return tasks[todoId].filter((t) => t.status === TaskStatuses.Completed);
       default:
         return tasks[todoId];
     }
@@ -30,8 +30,8 @@ export const Tasks: React.FC<TasksPropsType> = memo(({ id: todoId, filter }) => 
   let filteredTasksToRender: Array<TaskType> = getFilteredTasks();
 
   let filteredTasksToRenderMap = filteredTasksToRender.length ? (
-    filteredTasksToRender.map(({ id, title, completed }) => {
-      return <Task key={id} id={todoId} taskId={id} title={title} completed={completed} />;
+    filteredTasksToRender.map(({ id, title, status }) => {
+      return <Task key={id} id={todoId} taskId={id} title={title} status={status} />;
     })
   ) : (
     <span>Tasks list is empty</span>

@@ -24,11 +24,7 @@ export const App = () => {
   const todoListsMap = todoLists.map((t) => (
     <Grid item key={t.id}>
       <Paper style={{ padding: '10px' }}>
-        <TodoList
-          id={t.id}
-          title={t.title}
-          filter={t.filter}
-        />
+        <TodoList id={t.id} title={t.title} filter={t.filter}/>
       </Paper>
     </Grid>
   ));

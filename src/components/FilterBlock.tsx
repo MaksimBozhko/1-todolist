@@ -8,7 +8,6 @@ type FilterBlockPropsType = {
   filter: FilterValuesType;
 };
 export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter }) => {
-  console.log('FilterBlock')
   const dispatch = useDispatch();
   const changeFilter = useCallback((value: FilterValuesType) => {
     dispatch(changeFilterAC(id, value));

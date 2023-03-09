@@ -20,14 +20,12 @@ export const TaskIsDone = Template.bind({});
 TaskIsDone.args = {
     id: todoList1,
     taskId: taskId,
-    title: 'task',
-    completed: true
+    title: 'task'
 };
 
 export const TaskNotIsDone = Template.bind({});
 TaskNotIsDone.args = {
     id: todoList1,
     taskId: taskId,
-    title: 'task',
-    completed: false
+    title: 'task'
 };

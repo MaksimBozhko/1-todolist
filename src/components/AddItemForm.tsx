@@ -1,5 +1,4 @@
 import React, { ChangeEvent, KeyboardEvent, memo, useState } from 'react';
-// import { Button } from './Button';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -8,7 +7,6 @@ type AddItemFormType = {
 };
 
 export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack }) => {
-  console.log('addItemForm')
   const [title, setTitle] = useState('');
   const [error, setError] = useState<boolean>(false);
 
@@ -45,12 +43,6 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack }) => {
   };
   return (
     <div>
-      {/* <input
-        className={inputClasses}
-        value={title}
-        onChange={onChangeTitleHandler}
-        onKeyDown={onKeyDownTitleHandler}
-      /> */}
       <TextField
         value={title}
         onChange={onChangeTitleHandler}

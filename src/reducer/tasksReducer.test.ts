@@ -1,4 +1,4 @@
-import {changeTitleAC, taskId, tasksReducer, TasksStateType} from './tasksReducer';
+import {taskId, TasksStateType} from './tasksReducer';
 import {TaskStatuses, TodoTaskPriorities} from "../api/todolist-api";
 import {todoList1} from "./todoListReducer";
 
@@ -8,23 +8,23 @@ beforeEach(() => {
    startState = {
    ['todolistId1']: [
        {id: '1', title: 'HTML', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '',
-           startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+           startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
      {id: '2', title: 'JS', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
      {id: '3', title: 'REACT', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
      {id: '4', title: 'HTML', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
        {id: taskId, title: 'HTML', status: TaskStatuses.Completed, todoListId: todoList1, description: '',
-           startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+           startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
    ],
    ['todolistId2']: [
      {id: '1', title: 'bread', status: TaskStatuses.Completed, todoListId: 'todolistId2', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
      {id: '2', title: 'butter', status: TaskStatuses.Completed, todoListId: 'todolistId2', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
      {id: '3', title: 'meat', status: TaskStatuses.Completed, todoListId: 'todolistId2', description: '',
-       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+       startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low},
    ],
    };
 })
@@ -64,14 +64,3 @@ beforeEach(() => {
 //   expect(endState['todolistId2'][2].title).toBe('tea');
 //   expect(endState['todolistId2'].length).toBe(4);
 // });
-
-test('title of specified task should be changed', () => {
-
-    const action = changeTitleAC('todolistId1', '3', 'bread');
-
-    const endState = tasksReducer(startState, action);
-
-    expect(endState['todolistId1'][2].title).toBe('bread');
-    expect(endState['todolistId2'][2].title).toBe('tea');
-    expect(endState['todolistId2'].length).toBe(4);
-});
