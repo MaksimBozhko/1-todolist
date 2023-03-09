@@ -23,7 +23,7 @@ const initialState: TasksStateType = {
 export const tasksReducer = (state: TasksStateType = initialState, action: AppActionsType) => {
     switch (action.type) {
         case 'ADD-TASK': {
-            return {...state, [action.task.id]: [action.task, ...state[action.task.id]]};
+            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]};
         }
         case 'REMOVE-TASK': {
             return {...state, [action.todoId]: state[action.todoId].filter((t) => t.id !== action.taskId)}
@@ -71,7 +71,7 @@ export const setTasksAC = (todolistId: string, tasks: TaskType[]) => ({type: 'SE
 
 export const getTasks = (todoId: string): AppThunk => async (dispatch) => {
     const response = await tasksApi.getTasks(todoId)
-    response.data.error && dispatch(setTasksAC(todoId, response.data.items))
+    dispatch(setTasksAC(todoId, response.data.items))
 }
 export const addTask = (todoId: string, title: string): AppThunk => async (dispatch) => {
     const response = await tasksApi.createTask(todoId, title)
