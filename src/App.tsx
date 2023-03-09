@@ -1,27 +1,24 @@
 import Container from '@mui/material/Container/Container';
 import Grid from '@mui/material/Grid/Grid';
 import Paper from '@mui/material/Paper/Paper';
-import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {v1} from 'uuid';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {AddItemForm} from './components/AddItemForm';
 import {ButtonAppBar} from './components/ButtonAppBar';
 import {TodoList} from './components/TodoList';
-import {AppRootStateType} from './reducer/store';
-import {addTasksAC} from './reducer/tasksReducer';
-import {addTodoListAC, TodolistDomainType} from './reducer/todoListReducer';
-
+import {addTodoList, setTodolists} from './reducer/todoListReducer';
+import {useAppDispatch, useAppSelector} from "./hooks/hooks";
 
 export const App = () => {
   
-  const todoLists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
-  const dispatch = useDispatch();
+  const todoLists = useAppSelector(state => state.todolists)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+      dispatch(setTodolists())
+  }, [])
 
   const addTodoListHandler = useCallback((titleTodoList: string) => {
-    const todolistId = v1()
-    dispatch(addTodoListAC(todolistId, titleTodoList));
-    dispatch(addTasksAC(todolistId));
+      dispatch(addTodoList(titleTodoList))
   },[dispatch]);
 
   const todoListsMap = todoLists.map((t) => (
