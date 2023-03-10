@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {AddItemForm} from "../components/AddItemForm";
+import {AddItemForm} from "./AddItemForm";
 import {action} from "@storybook/addon-actions";
 
 export default {
@@ -17,4 +17,10 @@ const Template: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...
 export const Primary = Template.bind({});
 Primary.args = {
     callBack
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+    callBack,
+    disabled: true
 };

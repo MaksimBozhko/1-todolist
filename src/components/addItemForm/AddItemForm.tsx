@@ -3,10 +3,11 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 type AddItemFormType = {
-  callBack: (title: string) => void;
+  callBack: (title: string) => void
+  disabled?: boolean
 };
 
-export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack }) => {
+export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack, disabled = false }) => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState<boolean>(false);
 
@@ -44,6 +45,7 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack }) => {
   return (
     <div>
       <TextField
+        disabled={disabled}
         value={title}
         onChange={onChangeTitleHandler}
         onKeyDown={onKeyDownTitleHandler}
@@ -54,7 +56,7 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack }) => {
         error={error}
       />
       {/* <Button disabled={!title.trim()} handler={addItemHandler} name={'+'} /> */}
-      <Button style={buttonStyles} onClick={addItemHandler} variant="contained">
+      <Button style={buttonStyles} onClick={addItemHandler} variant="contained" disabled={disabled}>
         +
       </Button>
       {/* {errorMessage} */}

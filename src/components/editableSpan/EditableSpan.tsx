@@ -1,9 +1,9 @@
 import React, { ChangeEvent, memo, useState } from 'react';
 
 type EditableSpanType = {
-  callBack: (title: string) => void;
-  isDone?: boolean;
-  title: string;
+  callBack: (title: string) => void
+  isDone?: boolean
+  title: string
 };
 
 export const EditableSpan: React.FC<EditableSpanType> = memo(({ callBack, isDone, title }) => {

@@ -1,6 +1,6 @@
-import {taskId, TasksStateType} from './tasksReducer';
+import {TasksStateType} from './tasksReducer';
 import {TaskStatuses, TodoTaskPriorities} from "../api/todolist-api";
-import {todoList1} from "./todoListReducer";
+import {taskId, todoList1} from "../stories/ReduxStoreProviderDecorator";
 
 let startState: TasksStateType
 

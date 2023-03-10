@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import Button from '@mui/material/Button';
-import {changeFilterAC, FilterValuesType} from '../reducer/todoListReducer';
+import {changeFilterAC, FilterValuesType} from '../../reducer/todoListReducer';
 import { useDispatch } from 'react-redux';
 
 type FilterBlockPropsType = {

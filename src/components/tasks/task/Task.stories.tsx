@@ -1,9 +1,7 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {Task} from "../components/Task";
-import {todoList1} from "../reducer/todoListReducer";
-import {taskId} from "../reducer/tasksReducer";
-import {ReduxStoreProviderDecorator} from "./ReduxStoreProviderDecorator";
+import {Task} from "./Task";
+import {ReduxStoreProviderDecorator, taskId, todoList1} from "../../../stories/ReduxStoreProviderDecorator";
 
 export default {
     title: 'Example/task',

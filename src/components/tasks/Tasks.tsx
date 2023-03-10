@@ -1,12 +1,12 @@
 import React, { memo} from 'react';
-import { FilterBlock } from './FilterBlock';
-import { Task } from './Task';
+import { FilterBlock } from '../button/FilterBlock';
+import { Task } from './task/Task';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useSelector } from 'react-redux';
-import { AppRootStateType } from '../reducer/store';
-import {FilterValuesType} from "../reducer/todoListReducer";
-import {TaskStatuses, TaskType} from "../api/todolist-api";
-import {TasksStateType} from "../reducer/tasksReducer";
+import { AppRootStateType } from '../../reducer/store';
+import {FilterValuesType} from "../../reducer/todoListReducer";
+import {TaskStatuses, TaskType} from "../../api/todolist-api";
+import {TasksStateType} from "../../reducer/tasksReducer";
 
 type TasksPropsType = {
   id: string;

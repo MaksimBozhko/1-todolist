@@ -1,35 +1,48 @@
 import React from 'react';
 import {Provider} from "react-redux";
-import {combineReducers, legacy_createStore as createStore} from "redux";
-import {taskId, tasksReducer} from "../reducer/tasksReducer";
-import {todoList1, todoList2, todoListReducer} from "../reducer/todoListReducer";
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {tasksReducer} from "../reducer/tasksReducer";
+import {todoListReducer} from "../reducer/todoListReducer";
+import {appReducer} from "../reducer/appReducer";
+import thunk from "redux-thunk";
+import {TaskStatuses, TodoTaskPriorities} from "../api/todolist-api";
 import {v1} from "uuid";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todoListReducer
+    todolists: todoListReducer,
+    app: appReducer
 })
+
+export const taskId = v1()
+export const taskId2 = v1()
+export const taskId3 = v1()
+export const todoList1 = v1();
+export const todoList2 = v1();
+
 const initialGlobalState = {
     todolists: [
-        {id: todoList1, title: 'What to learn', filter: 'active'},
-        {id: todoList2, title: 'What To buy', filter: 'completed'},
+        {id: todoList1, title: 'What to learn', filter: "all", addedDate: '', order: 0, entityStatus: "loading"},
+        {id: todoList2, title: 'What to buy', filter: "all", addedDate: '', order: 0 , entityStatus: "idle"},
     ],
     tasks: {
         [todoList1]: [
-            {taskId: taskId, title: 'HTML', completed: true},
-            {taskId: v1(), title: 'css', completed: true},
-            {taskId: v1(), title: 'js', completed: true},
-            {taskId: v1(), title: 'React', completed: false},
+            {id: taskId, title: 'HTML', status: TaskStatuses.Completed, todoListId: todoList1, description: '',
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false}
         ],
         [todoList2]: [
-            {taskId: v1(), title: 'bread', completed: true},
-            {taskId: v1(), title: 'butter', completed: true},
-            {taskId: v1(), title: 'meat', completed: true},
-            {taskId: v1(), title: 'milk', completed: false},
+            {id: taskId2, title: 'bread', status: TaskStatuses.Completed, todoListId: todoList1, description: '',
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
+            {id: taskId3, title: 'butter', status: TaskStatuses.Completed, todoListId: todoList1, description: '',
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TodoTaskPriorities.Low, completed: false},
         ],
+    },
+    app: {
+        status: 'idle',
+        error: null
     }
 }
-export const storyBookStore = createStore(rootReducer, initialGlobalState as any);
+export const storyBookStore = createStore(rootReducer, initialGlobalState as any, applyMiddleware(thunk));
 
 export const ReduxStoreProviderDecorator = (story: any) => {
     return <Provider store={storyBookStore}>{story()}</Provider>
