@@ -1,15 +1,15 @@
-import {AppActionsType} from "./store";
+import {AppActionsType} from './store';
 
 const initialState: InitialStateType = {
     status: 'idle',
     error: null
 }
 
-export const appReducer = (state = initialState, action: AppActionsType ) => {
+export const appReducer = (state = initialState, action: AppActionsType) => {
     switch (action.type) {
-        case "APP/SET-STATUS":
+        case 'APP/SET-STATUS':
             return {...state, status: action.status}
-        case "APP/SET-ERROR":
+        case 'APP/SET-ERROR':
             return {...state, error: action.error}
         default:
             return {...state}

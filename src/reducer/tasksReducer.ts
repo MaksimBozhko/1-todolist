@@ -1,7 +1,7 @@
-import {tasksApi, TaskStatuses, TaskType, TodoTaskPriorities, UpdateTaskModelType} from "../api/todolist-api";
-import {AppActionsType, AppRootStateType, AppThunk} from "./store";
-import {setAppErrorAC, setAppStatusAC} from "./appReducer";
-import handleServerNetworkError from "../utils/networkError";
+import {tasksApi, TaskStatuses, TaskType, TodoTaskPriorities, UpdateTaskModelType} from '../api/todolist-api';
+import {AppActionsType, AppRootStateType, AppThunk} from './store';
+import {setAppErrorAC, setAppStatusAC} from './appReducer';
+import handleServerNetworkError from '../utils/networkError';
 
 export const tasksReducer = (state: TasksStateType = {
     // [todoList1]: [
@@ -22,10 +22,12 @@ export const tasksReducer = (state: TasksStateType = {
             return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]};
         case 'REMOVE-TASK':
             return {...state, [action.todoId]: state[action.todoId].filter((t) => t.id !== action.taskId)}
-        case "UPDATE-TASK":
-            return {...state, [action.todolistId]: state[action.todolistId].map((t) => {
+        case 'UPDATE-TASK':
+            return {
+                ...state, [action.todolistId]: state[action.todolistId].map((t) => {
                     return t.id === action.taskId ? {...t, ...action.newParam} : t
-                })}
+                })
+            }
         case 'SET-TODOLISTS':
             action.todolists.forEach(tl => state[tl.id] = [])
             return {...state}

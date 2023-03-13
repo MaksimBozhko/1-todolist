@@ -6,8 +6,9 @@ import {EditableSpan} from '../../editableSpan/EditableSpan';
 import {Tasks} from '../../tasks/Tasks';
 import {getTasks} from '../../../reducer/tasksReducer';
 import {deleteTodoList, FilterValuesType, updateTodoList} from '../../../reducer/todoListReducer';
-import {useAppDispatch} from "../../../hooks/hooks";
-import {statusType} from "../../../reducer/appReducer";
+import {useAppDispatch} from '../../../hooks/hooks';
+import {statusType} from '../../../reducer/appReducer';
+
 
 type TodolistPropsType = {
     id: string
@@ -34,11 +35,11 @@ export const TodoList: React.FC<TodolistPropsType> = ({id, title, filter, entity
         <div>
             <div>
                 <EditableSpan callBack={onChangeUpdateTodoListHandler} title={title}/>
-                <IconButton onClick={onChangeRemoveTodoListHandler} disabled={entityStatus === 'loading'} aria-label="delete" size="small">
+                <IconButton onClick={onChangeRemoveTodoListHandler} disabled={entityStatus === 'loading'}
+                            aria-label="delete" size="small">
                     <DeleteIcon fontSize="inherit"/>
                 </IconButton>
             </div>
-
             <AddTodo id={id} disabled={entityStatus === 'loading'}/>
             <Tasks
                 id={id}
