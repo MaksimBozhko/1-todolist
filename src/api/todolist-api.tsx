@@ -1,4 +1,5 @@
 import axios from "axios";
+import {LoginParamsType} from '../reducer/authReducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -33,6 +34,18 @@ export const tasksApi = {
     },
     updateTask(todoId: string, taskId: string, updateObj: UpdateTaskModelType) {
         return instance.put<ResponseTasksType>(`todo-lists/${todoId}/tasks/${taskId}`, {...updateObj})
+    }
+}
+//auth API
+export const authApi = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{userId?: number}>>('auth/login', data)
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+    },
+    authMe() {
+        return instance.get<ResponseType<LoginParamsType>>('auth/me')
     }
 }
 

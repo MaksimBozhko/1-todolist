@@ -74,6 +74,7 @@ export const addTask = (todoId: string, title: string): AppThunk => async (dispa
             dispatch(setAppStatusAC('succeeded'))
             dispatch(addTaskAC(response.data.data.item))
         } else {
+            dispatch(setAppStatusAC('failed'))
             dispatch(setAppErrorAC(response.data.messages[0]))
         }
     } catch (e: any) {

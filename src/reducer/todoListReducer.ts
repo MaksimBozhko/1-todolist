@@ -56,6 +56,7 @@ export const addTodoList = (title: string): AppThunk => async (dispatch) => {
             dispatch(addTodoListAC(response.data.data.item))
             dispatch(setAppStatusAC('succeeded'))
         } else {
+            dispatch(setAppStatusAC('failed'))
             dispatch(setAppErrorAC(response.data.messages[0]))
         }
     } catch (e: any) {
@@ -86,7 +87,7 @@ export const updateTodoList = (todolistId: string, newTitle: string): AppThunk =
         } else {
             dispatch(setAppErrorAC(response.data.messages[0]))
         }
-        response.data.resultCode === 0 && dispatch(updateTodoListAC(todolistId, newTitle))
+
     } catch (e: any) {
         handleServerNetworkError(e.message, dispatch)
     }
