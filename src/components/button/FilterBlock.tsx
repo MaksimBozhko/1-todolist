@@ -1,16 +1,16 @@
 import React, { memo, useCallback } from 'react';
 import Button from '@mui/material/Button';
-import {changeFilterAC, FilterValuesType} from '../../reducer/todoListReducer';
-import { useDispatch } from 'react-redux';
+import {useAppDispatch} from '../../hooks/hooks-RTK';
+import {changeFilterAC, FilterValuesType} from '../../toolkit/todolistSlice';
 
 type FilterBlockPropsType = {
   id: string;
   filter: FilterValuesType;
 };
 export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter }) => {
-  const dispatch = useDispatch();
-  const changeFilter = useCallback((value: FilterValuesType) => {
-    dispatch(changeFilterAC(id, value));
+  const dispatch = useAppDispatch();
+  const changeFilter = useCallback((filter: FilterValuesType) => {
+    dispatch(changeFilterAC({id, filter}));
   },[dispatch, id]);
 
   return (

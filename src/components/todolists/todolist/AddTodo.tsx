@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
-import {addTask} from '../../../reducer/tasksReducer';
-import { changeFilterAC } from '../../../reducer/todoListReducer';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
-import {useAppDispatch} from "../../../hooks/hooks";
+import {useAppDispatch} from "../../../hooks/hooks-RTK";
+import {addTask} from '../../../toolkit/taskSlice';
+import {changeFilterAC, FilterValuesType} from '../../../toolkit/todolistSlice';
 
 type AddTodoPropsType = {
   id: string;
@@ -10,9 +10,9 @@ type AddTodoPropsType = {
 }
 export const AddTodo: React.FC<AddTodoPropsType> = memo(({ id, disabled }) => {
   const dispatch = useAppDispatch();
-  const addTaskHandler = useCallback((taskTitle: string) => {
-    dispatch(addTask(id, taskTitle))
-    dispatch(changeFilterAC(id, 'all'));
+  const addTaskHandler = useCallback((title: string) => {
+    dispatch(addTask({todoId: id, title}))
+    dispatch(changeFilterAC({id, filter: 'all' as FilterValuesType}));
   }, [dispatch, id]);
 
   return <AddItemForm callBack={addTaskHandler} disabled={disabled} />;

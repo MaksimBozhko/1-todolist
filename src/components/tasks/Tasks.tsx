@@ -1,12 +1,10 @@
-import React, { memo} from 'react';
-import { FilterBlock } from '../button/FilterBlock';
-import { Task } from './task/Task';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { useSelector } from 'react-redux';
-import { AppRootStateType } from '../../reducer/store';
-import {FilterValuesType} from "../../reducer/todoListReducer";
-import {TaskStatuses, TaskType} from "../../api/todolist-api";
-import {TasksStateType} from "../../reducer/tasksReducer";
+import React, {memo} from 'react';
+import {FilterBlock} from '../button/FilterBlock';
+import {Task} from './task/Task';
+import {useAutoAnimate} from '@formkit/auto-animate/react';
+import {TaskStatuses, TaskType} from '../../api/todolist-api';
+import {FilterValuesType} from '../../toolkit/todolistSlice';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
 
 type TasksPropsType = {
   id: string;
@@ -14,7 +12,9 @@ type TasksPropsType = {
 };
 
 export const Tasks: React.FC<TasksPropsType> = memo(({ id: todoId, filter }) => {
-  const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks);
+  const dispatch = useAppDispatch()
+
+  const tasks = useAppSelector((state) => state.task);
   const [listRef] = useAutoAnimate<HTMLUListElement>();
 
   const getFilteredTasks = () => {

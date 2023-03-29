@@ -2,14 +2,16 @@ import React, {useCallback, useEffect} from 'react';
 import Grid from "@mui/material/Grid/Grid";
 import Paper from "@mui/material/Paper/Paper";
 import {TodoList} from "./todolist/TodoList";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks-RTK";
 import {AddItemForm} from "../addItemForm/AddItemForm";
-import {addTodoList, setTodolists} from '../../reducer/todoListReducer';
 import {Navigate} from 'react-router-dom';
+import {setTodolists} from '../../toolkit/todolistSlice';
+import {addTodolist} from '../../toolkit/todolistSlice';
+import {getTasks} from '../../toolkit/taskSlice';
 
 export const Todolists = () => {
     const dispatch = useAppDispatch()
-    const todoLists = useAppSelector(state => state.todolists)
+    const todoLists = useAppSelector(state => state.todolist)
     const {isLoggedIn} = useAppSelector(state => state.login)
     useEffect(() => {
         // dispatch(setTodolistsT())
@@ -17,7 +19,7 @@ export const Todolists = () => {
     }, [])
 
     const addTodoListHandler = useCallback((titleTodoList: string) => {
-        dispatch(addTodoList(titleTodoList))
+        dispatch(addTodolist(titleTodoList))
     },[dispatch]);
 
     const todolists = todoLists.map((t) => (

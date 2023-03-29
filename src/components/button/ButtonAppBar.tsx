@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
 import {useCallback} from 'react';
-import {logout} from '../../reducer/authReducer';
+import {logout} from '../../toolkit/authSlice';
 
 export const ButtonAppBar = () => {
   const dispatch = useAppDispatch()

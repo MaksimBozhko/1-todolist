@@ -31,7 +31,6 @@ export const initializeApp = (): AppThunk => async (dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
         const response = await authApi.authMe()
-        console.log(response);
         if (response.data.resultCode === 0) {
             dispatch(setAppStatusAC('succeeded'))
         } else {

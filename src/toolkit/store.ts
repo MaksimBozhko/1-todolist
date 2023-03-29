@@ -2,11 +2,13 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import todolistSlice from './todolistSlice';
 import taskSlice from './taskSlice';
 import appSlice from './appSlice';
+import authSlice from './authSlice';
 
 const reducer = combineReducers({
     todolist: todolistSlice,
     task: taskSlice,
-    app: appSlice
+    app: appSlice,
+    login: authSlice
 })
 export const store2 = configureStore({reducer})
 

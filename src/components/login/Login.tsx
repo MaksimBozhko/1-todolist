@@ -1,12 +1,12 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {login} from '../../reducer/authReducer';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
 import {Navigate} from 'react-router-dom';
 import Grid from "@mui/material/Grid/Grid";
 import {FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from '@mui/material';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import {login} from '../../toolkit/authSlice';
 
 export const Login = () => {
     const dispatch = useAppDispatch()
