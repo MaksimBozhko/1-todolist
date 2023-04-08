@@ -32,10 +32,6 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack, disabled
     }
   };
 
-  // const inputClasses = error ? 'inputError' : undefined;
-  // const errorMessage = error && (
-  //   <p style={{ color: 'hotpink', margin: 0 }}>Please, enter task title...</p>
-  // );
   const buttonStyles = {
     maxWidth: '30px',
     maxHeight: '30px',
@@ -55,11 +51,9 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({ callBack, disabled
         size="small"
         error={error}
       />
-      {/* <Button disabled={!title.trim()} handler={addItemHandler} name={'+'} /> */}
       <Button style={buttonStyles} onClick={addItemHandler} variant="contained" disabled={disabled}>
         +
       </Button>
-      {/* {errorMessage} */}
     </div>
   );
 });

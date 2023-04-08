@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useCallback} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,16 +8,15 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
-import {useCallback} from 'react';
-import {logout} from '../../toolkit/authSlice';
+import {useAppDispatch, useAppSelector} from '../../common/hooks/hooks-RTK';
+import {authThunks} from '../../common/toolkit/authSlice';
 
 export const ButtonAppBar = () => {
   const dispatch = useAppDispatch()
   const {status} = useAppSelector(state => state.app)
-  const {isLoggedIn} = useAppSelector(state => state.login)
+  const {isLoggedIn} = useAppSelector(state => state.auth)
   const logoutHandler = useCallback(() => {
-    dispatch(logout())
+    dispatch(authThunks.logout())
   }, [])
   return (
     <Box sx={{ flexGrow: 1, position: 'relative', height:'64px' }}>

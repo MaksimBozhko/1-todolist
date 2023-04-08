@@ -8,15 +8,15 @@ import {Route, Routes} from 'react-router-dom';
 import {Login} from './components/login/Login';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import {initializeApp} from './toolkit/appSlice';
-import {useAppDispatch, useAppSelector} from './hooks/hooks-RTK';
+import {useAppDispatch, useAppSelector} from './common/hooks/hooks-RTK';
+import {appThunks} from './common/toolkit/appSlice';
 
 
 export const App = () => {
     const {isInitialized} = useAppSelector(state => state.app)
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(initializeApp())
+        dispatch(appThunks.initializeApp())
     }, [])
     if (!isInitialized) return <Box sx={{display: 'flex', justifyContent: 'center', marginTop : '500px' }}><CircularProgress /></Box>
     return <>

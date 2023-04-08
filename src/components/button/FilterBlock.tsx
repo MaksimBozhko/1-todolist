@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import Button from '@mui/material/Button';
-import {useAppDispatch} from '../../hooks/hooks-RTK';
-import {changeFilterAC, FilterValuesType} from '../../toolkit/todolistSlice';
+import {useAppDispatch} from '../../common/hooks/hooks-RTK';
+import {FilterValuesType, todolistsActions} from '../../common/toolkit/todolistSlice';
 
 type FilterBlockPropsType = {
   id: string;
@@ -10,7 +10,7 @@ type FilterBlockPropsType = {
 export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter }) => {
   const dispatch = useAppDispatch();
   const changeFilter = useCallback((filter: FilterValuesType) => {
-    dispatch(changeFilterAC({id, filter}));
+    dispatch(todolistsActions.changeTodolistFilter({id, filter}));
   },[dispatch, id]);
 
   return (

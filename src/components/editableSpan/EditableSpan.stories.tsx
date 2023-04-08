@@ -1,9 +1,9 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {Provider} from "react-redux";
-import {store} from "../../reducer/store";
 import {EditableSpan} from "./EditableSpan";
 import {action} from "@storybook/addon-actions";
+import {store} from '../../common/toolkit/store';
 
 export default {
     title: 'Example/EditableSpan',

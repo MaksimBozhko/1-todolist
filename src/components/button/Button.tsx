@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import {FilterValuesType} from "../../reducer/todoListReducer";
+import {FilterValuesType} from '../../common/toolkit/todolistSlice';
 
 type ButtonPropsType = {
   name: string;

@@ -2,24 +2,21 @@ import React, {useCallback, useEffect} from 'react';
 import Grid from "@mui/material/Grid/Grid";
 import Paper from "@mui/material/Paper/Paper";
 import {TodoList} from "./todolist/TodoList";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks-RTK";
+import {useAppDispatch, useAppSelector} from "../../common/hooks/hooks-RTK";
 import {AddItemForm} from "../addItemForm/AddItemForm";
 import {Navigate} from 'react-router-dom';
-import {setTodolists} from '../../toolkit/todolistSlice';
-import {addTodolist} from '../../toolkit/todolistSlice';
-import {getTasks} from '../../toolkit/taskSlice';
+import {todolistsThunks} from '../../common/toolkit/todolistSlice';
 
 export const Todolists = () => {
     const dispatch = useAppDispatch()
-    const todoLists = useAppSelector(state => state.todolist)
-    const {isLoggedIn} = useAppSelector(state => state.login)
+    const todoLists = useAppSelector(state => state.todolists)
+    const {isLoggedIn} = useAppSelector(state => state.auth)
     useEffect(() => {
-        // dispatch(setTodolistsT())
-        isLoggedIn && dispatch(setTodolists())
+        isLoggedIn && dispatch(todolistsThunks.fetchTodoLists())
     }, [])
 
-    const addTodoListHandler = useCallback((titleTodoList: string) => {
-        dispatch(addTodolist(titleTodoList))
+    const addTodoListHandler = useCallback((title: string) => {
+        dispatch(todolistsThunks.addTodolist(title))
     },[dispatch]);
 
     const todolists = todoLists.map((t) => (

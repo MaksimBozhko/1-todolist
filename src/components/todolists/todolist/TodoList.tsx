@@ -4,30 +4,30 @@ import React, {useCallback, useEffect} from 'react';
 import {AddTodo} from './AddTodo';
 import {EditableSpan} from '../../editableSpan/EditableSpan';
 import {Tasks} from '../../tasks/Tasks';
-import {useAppDispatch} from '../../../hooks/hooks-RTK';
-import {getTasks} from '../../../toolkit/taskSlice';
-import {deleteTodolist, FilterValuesType, updateTodolist} from '../../../toolkit/todolistSlice';
-import {statusType} from '../../../toolkit/appSlice';
+import {useAppDispatch} from '../../../common/hooks/hooks-RTK';
+import {FilterValuesType, todolistsThunks} from '../../../common/toolkit/todolistSlice';
+import {RequestStatusType} from '../../../common/toolkit/appSlice';
+import {tasksThunks} from '../../../common/toolkit/taskSlice';
 
 
 type TodolistPropsType = {
     id: string
     title: string
     filter: FilterValuesType
-    entityStatus: statusType
+    entityStatus: RequestStatusType
 };
 
 export const TodoList: React.FC<TodolistPropsType> = ({id, title, filter, entityStatus}) => {
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(getTasks(id))
+        dispatch(tasksThunks.fetchTasks(id))
     }, [])
     const onChangeRemoveTodoListHandler = () => {
-        dispatch(deleteTodolist(id));
+        dispatch(todolistsThunks.removeTodolist(id));
     }
 
-    const onChangeUpdateTodoListHandler = useCallback((newTitle: string) => {
-        dispatch(updateTodolist({todolistId: id, newTitle}));
+    const onChangeUpdateTodoListHandler = useCallback((title: string) => {
+        dispatch(todolistsThunks.changeTodolistTitle({id, title}));
     }, [dispatch, id]);
 
     return (

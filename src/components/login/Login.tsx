@@ -1,16 +1,16 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
+import {useAppDispatch, useAppSelector} from '../../common/hooks/hooks-RTK';
 import {Navigate} from 'react-router-dom';
-import Grid from "@mui/material/Grid/Grid";
+import Grid from '@mui/material/Grid/Grid';
 import {FormControl, FormControlLabel, FormGroup, FormLabel, TextField} from '@mui/material';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import {login} from '../../toolkit/authSlice';
+import {authThunks} from '../../common/toolkit/authSlice';
 
 export const Login = () => {
     const dispatch = useAppDispatch()
-    const {isLoggedIn} = useAppSelector(state => state.login)
+    const {isLoggedIn} = useAppSelector(state => state.auth)
     const formik = useFormik({
         validate: values => {
             if (!values.email) return {email: 'Email is required'}
@@ -21,7 +21,7 @@ export const Login = () => {
             password: '',
             rememberMe: false
         },
-        onSubmit: values => dispatch(login(values)),
+        onSubmit: values => dispatch(authThunks.login(values)),
     });
     if (isLoggedIn) return <Navigate to='/1-todolist' />
     return (<Grid container justifyContent={'center'}>

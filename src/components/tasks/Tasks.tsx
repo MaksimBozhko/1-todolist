@@ -2,9 +2,9 @@ import React, {memo} from 'react';
 import {FilterBlock} from '../button/FilterBlock';
 import {Task} from './task/Task';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
-import {TaskStatuses, TaskType} from '../../api/todolist-api';
-import {FilterValuesType} from '../../toolkit/todolistSlice';
-import {useAppDispatch, useAppSelector} from '../../hooks/hooks-RTK';
+import {TaskStatuses, TaskType} from '../../common/api/todolist-api';
+import {FilterValuesType} from '../../common/toolkit/todolistSlice';
+import {useAppSelector} from '../../common/hooks/hooks-RTK';
 
 type TasksPropsType = {
   id: string;
@@ -12,11 +12,9 @@ type TasksPropsType = {
 };
 
 export const Tasks: React.FC<TasksPropsType> = memo(({ id: todoId, filter }) => {
-  const dispatch = useAppDispatch()
 
-  const tasks = useAppSelector((state) => state.task);
+  const tasks = useAppSelector((state) => state.tasks);
   const [listRef] = useAutoAnimate<HTMLUListElement>();
-
   const getFilteredTasks = () => {
     switch (filter) {
       case 'active':

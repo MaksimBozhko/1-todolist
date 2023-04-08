@@ -3,9 +3,9 @@ import {EditableSpan} from '../../editableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
-import {useAppDispatch} from "../../../hooks/hooks-RTK";
-import {TaskStatuses} from "../../../api/todolist-api";
-import {deleteTask, updateTask} from '../../../toolkit/taskSlice';
+import {useAppDispatch} from "../../../common/hooks/hooks-RTK";
+import {TaskStatuses} from "../../../common/api/todolist-api";
+import {tasksThunks} from '../../../common/toolkit/taskSlice';
 
 type TodoPropsType = {
   id: string;
@@ -18,15 +18,15 @@ export const Task: React.FC<TodoPropsType> = memo(({ id, taskId, title, status }
   const dispatch = useAppDispatch()
   const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const status = e.currentTarget.checked ? 2 : 0
-    dispatch(updateTask({todolistId: id, taskId, domainModel: {status}}));
+    dispatch(tasksThunks.updateTask({todolistId: id, taskId, domainModel: {status}}));
   };
 
   const updateTaskHandler = useCallback((newTitle: string) => {
-    dispatch(updateTask({todolistId: id, taskId, domainModel: {title: newTitle}}))
+    dispatch(tasksThunks.updateTask({todolistId: id, taskId, domainModel: {title: newTitle}}))
   }, [dispatch, id, taskId]);
 
   const onChangeRemoveHandler = () => {
-    dispatch(deleteTask({todoId: id, taskId}))
+    dispatch(tasksThunks.removeTask({id, taskId}))
   };
   return (
     <li key={id}>
