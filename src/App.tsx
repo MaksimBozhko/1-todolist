@@ -1,39 +1,43 @@
-import Container from '@mui/material/Container/Container';
-import React, {useEffect} from 'react';
-import './App.css';
-import {ButtonAppBar} from './components/button/ButtonAppBar';
-import {Todolists} from './components/todolists/Todolists';
-import {ErrorSnackbar} from './components/ErrorSnackBar';
-import {Route, Routes} from 'react-router-dom';
-import {Login} from './components/login/Login';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import {useAppDispatch, useAppSelector} from './common/hooks/hooks-RTK';
-import {appThunks} from './common/toolkit/appSlice';
-
+import Container from '@mui/material/Container/Container'
+import React, { useEffect } from 'react'
+import './App.css'
+import { ButtonAppBar } from './components/button/ButtonAppBar'
+import { Todolists } from './components/todolists/Todolists'
+import { ErrorSnackbar } from './components/ErrorSnackBar'
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './components/login/Login'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
+import { useAppDispatch, useAppSelector } from './common/hooks/hooks-RTK'
+import { appThunks } from './common/toolkit/appSlice'
 
 export const App = () => {
-    const {isInitialized} = useAppSelector(state => state.app)
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(appThunks.initializeApp())
-    }, [])
-    if (!isInitialized) return <Box sx={{display: 'flex', justifyContent: 'center', marginTop : '500px' }}><CircularProgress /></Box>
-    return <>
-        <ButtonAppBar/>
-        <Container fixed>
-            <Routes>
-                <Route path="/1-todolist" element={<Todolists/>}/>
-                <Route path="/1-todolist/login" element={<Login/>}/>
-            </Routes>
-            <ErrorSnackbar/>
-        </Container>
-    </>
-};
-
-
-
-
+	const { isInitialized } = useAppSelector(state => state.app)
+	const dispatch = useAppDispatch()
+	useEffect(() => {
+		dispatch(appThunks.initializeApp())
+	}, [])
+	if (!isInitialized)
+		return (
+			<Box
+				sx={{ display: 'flex', justifyContent: 'center', marginTop: '500px' }}
+			>
+				<CircularProgress />
+			</Box>
+		)
+	return (
+		<>
+			<ButtonAppBar />
+			<Container fixed>
+				<Routes>
+					<Route path='/1-todolist' element={<Todolists />} />
+					<Route path='/1-todolist/login' element={<Login />} />
+				</Routes>
+				<ErrorSnackbar />
+			</Container>
+		</>
+	)
+}
 
 // import { useFormik } from 'formik';
 // import React from 'react'
@@ -108,8 +112,6 @@ export const App = () => {
 // // Исправленную версию строки напишите в качестве ответа.
 //
 // // 🖥 Пример ответа: {true && <div style={{color: 'red'}}>error.email</div>}
-
-
 
 // import React, { useEffect } from 'react'
 // import { Provider, TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
