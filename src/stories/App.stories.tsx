@@ -1,15 +1,14 @@
-import React from 'react';
-import {ComponentMeta, ComponentStory} from '@storybook/react';
-import {App} from '../App';
+import React from 'react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { App } from '../app'
 
 export default {
-    title: 'Example/App',
-    component: App,
-    argTypes: {},
-    // decorators: [ReduxStoreProviderDecorator]
-} as ComponentMeta<typeof App>;
+	title: 'Example/App',
+	component: App,
+	argTypes: {}
+	// decorators: [ReduxStoreProviderDecorator]
+} as ComponentMeta<typeof App>
 
+const Template: ComponentStory<typeof App> = () => <App />
 
-const Template: ComponentStory<typeof App> = () => <App/>;
-
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})

@@ -1,24 +1,26 @@
-import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {Provider} from "react-redux";
-import {EditableSpan} from "./EditableSpan";
-import {action} from "@storybook/addon-actions";
-import {store} from '../../common/toolkit/store';
+import React from 'react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { Provider } from 'react-redux'
+import { EditableSpan } from './EditableSpan'
+import { action } from '@storybook/addon-actions'
+import { store } from '../../app/store'
 
 export default {
-    title: 'Example/EditableSpan',
-    component: EditableSpan,
-    argTypes: {},
-} as ComponentMeta<typeof EditableSpan>;
+	title: 'Example/EditableSpan',
+	component: EditableSpan,
+	argTypes: {}
+} as ComponentMeta<typeof EditableSpan>
 
 const callBack = action('value change')
 
-const Template: ComponentStory<typeof EditableSpan> = (args) => <Provider store={store}><EditableSpan {...args} /></Provider>
+const Template: ComponentStory<typeof EditableSpan> = args => (
+	<Provider store={store}>
+		<EditableSpan {...args} />
+	</Provider>
+)
 
-export const span = Template.bind({});
+export const span = Template.bind({})
 span.args = {
-    callBack,
-    title: 'value'
-};
-
-
+	callBack,
+	title: 'value'
+}
